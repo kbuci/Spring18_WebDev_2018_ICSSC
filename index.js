@@ -1,4 +1,4 @@
-import { stringify } from "querystring";
+//import { stringify } from "querystring";
 
 /*var todo = [];
 document.getElementById('new-add').onclick = function () {
@@ -179,8 +179,9 @@ function createDelButton(i, parent_div){
     var del_button = document.createElement('button');
     del_button.onclick = function (){todo.splice(i, 1); list_div.removeChild(parent_div); drawList(i);};
     del_button.innerHTML = 'delete';
-    del_button.onmouseenter = function () {del_button.style.color = "orange"};
-    del_button.onmouseleave = function () {del_button.style.color = ""};
+    del_button.onmouseenter = function () {this.style.color = "orange"};
+    del_button.onmouseleave = function () {this.style.color = ""};
+    del_button.classList.add("item");
     return del_button;
 }
 
@@ -193,7 +194,7 @@ function addItem(){
 function createPin(i, parent_div){
     var pin_button = document.createElement('button');
     pin_button.onclick = function (){var divEntry = todo[i]; divEntry.pinned = true;
-        todo.splice(i, 1); todo.splice(0, 0, divEntry); drawList(0);};
+        todo.splice(i, 1); todo.splice(0, 0, divEntry); drawList(0); };
     pin_button.innerHTML = 'pin';
     return pin_button;
 }
@@ -209,7 +210,7 @@ function drawList(s){
     }
 */
     todo.forEach(function (element, i) {
-        console.log(JSON.stringify(element));
+        //console.log(JSON.stringify(element));
         var ith_div = document.createElement('div');
         var ith_des = element.des;
         var ith_date = element.date;
@@ -217,7 +218,7 @@ function drawList(s){
         var date_p = document.createElement('p');
         var edit_button = createEditButton(i, ith_div, des_p);
         var del_button = createDelButton(i, ith_div);
-        var pin_button = createPin(i, ith_div);
+       
         /* test delete, show i doesnt update
         var del_button = document.createElement('button');
         del_button.onclick = function (){console.log(i) ;};
@@ -233,10 +234,14 @@ function drawList(s){
         if(element.pinned){
             ith_div.style.backgroundColor = "red";
         }
+        else{
+            var pin_button = createPin(i, ith_div);
+            ith_div.appendChild(pin_button);
+        }
         ith_div.appendChild(des_p);
         ith_div.appendChild(date_p);
         ith_div.appendChild(del_button);
-        ith_div.appendChild(pin_button);
+        
         list_div.appendChild(ith_div);
         
         
@@ -247,6 +252,6 @@ function drawList(s){
 
 }
 submit_input.onclick = addItem; 
-submit_input.onmouseenter = function (event) {submit_input.style.color = "orange"};
-submit_input.onmouseleave = function (Event) {submit_input.style.color = ""};
+submit_input.onmouseenter = function (event) {this.style.color = "orange";};
+submit_input.onmouseleave = function (event) {for(var key in event) {console.log(event[key]);}; this.style.color = "";};
  
